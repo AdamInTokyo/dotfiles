@@ -1,0 +1,6 @@
+{
+  "diagnostics": {
+    "globals": ["vim"], // This should tell the language server that vim is available, but it doesn't work
+    "hint.enable": true //細かい助言だって
+  }
+}
