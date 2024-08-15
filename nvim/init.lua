@@ -50,3 +50,6 @@ end, { desc = "local Jupyter console" })
 
 -- disable paired parenthesis
 vim.g.minipairs_disable = true
+
+-- disable Copilot by default
+vim.cmd("Copilot disable")
