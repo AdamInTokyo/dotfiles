@@ -1,6 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "LazyFile",
+  lazy = False,
   opts = {
     signs = {
       add = { text = "▎" },

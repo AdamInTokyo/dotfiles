@@ -2,7 +2,7 @@ return {
 
   {
     "williamboman/mason.nvim",
-    dependencies = { "williamboman/mason-lspconfig.nvim" },
+    --dependencies = { "williamboman/mason-lspconfig.nvim" },
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     build = ":MasonUpdate",
@@ -43,6 +43,9 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    require("mason-lspconfig").setup(),
+    opts = {},
+    config = function(_, opts)
+      require("mason-lspconfig").setup()
+    end,
   },
 }

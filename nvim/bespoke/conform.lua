@@ -13,7 +13,7 @@ return {
       desc = "Format Injected Langs",
     },
   },
-  require("conform").setup({
+  opts = {
     formatters_by_ft = {
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
@@ -28,5 +28,5 @@ return {
       timeout_ms = 500,
       lsp_format = "fallback",
     },
-  }),
+  },
 }
