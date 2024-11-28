@@ -43,9 +43,16 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    opts = {},
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shfmt",
+        "basedpyright",
+        "ruff",
+      },
+    },
     config = function(_, opts)
-      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup(opts)
     end,
   },
 }
