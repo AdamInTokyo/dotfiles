@@ -9,8 +9,8 @@ return {
     opts_extend = { "ensure_installed" },
     opts = {
       ensure_installed = {
-        "stylua",
-        "shfmt",
+	-- "stylua",
+        -- "shfmt",
         "basedpyright",
         "ruff",
       },
@@ -45,8 +45,8 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     opts = {
       ensure_installed = {
-        "stylua",
-        "shfmt",
+        -- "stylua",
+        -- "shfmt",
         "basedpyright",
         "ruff",
       },
