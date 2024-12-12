@@ -1,7 +1,6 @@
 vim.wo.number = true
 vim.opt.relativenumber = true
 
-
 vim.o.background = "light"
 vim.cmd("set termguicolors")
 
@@ -14,7 +13,7 @@ require("lspconfig").basedpyright.setup{}
 require("lspconfig").lua_ls.setup{}
 require("lspconfig").ruff.setup{}
 
--- Formatters
+-- Linters 
 require("lint").linters_by_ft = {
 --  lua = {"stylua"},
 }
@@ -40,7 +39,13 @@ vim.keymap.set('n', '<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
 vim.keymap.set('n', '<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Tab formatting
-vim.o.tabstop = 3 -- A TAB character looks like 4 spaces
+local tab_spaces = 3
+vim.o.tabstop = tab_spaces -- A TAB character looks like X spaces
 vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.o.softtabstop = 3 -- Number of spaces inserted instead of a TAB character
-vim.o.shiftwidth = 3 -- Number of spaces inserted when indenting
+vim.o.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = tab_spaces -- Number of spaces inserted when indenting
+
+-- Omni-func completion settings
+vim.opt.completeopt = {"menuone","noinsert","noselect"}
+vim.keymap.set('i', '<C-J>', vim.lsp.omnifunc, { noremap = true, silent = true, desc = "Autocomplete" })
+
