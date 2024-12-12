@@ -49,6 +49,7 @@ return {
         -- "shfmt",
         "basedpyright",
         "ruff",
+        "rust_analyzer",
       },
     },
     config = function(_, opts)
