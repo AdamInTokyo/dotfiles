@@ -8,10 +8,11 @@ vim.cmd("set termguicolors")
 require("config.lazy")
 
 vim.cmd("colorscheme zenbones")
-
+vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
 -- LSP servers
 require("lspconfig").basedpyright.setup{}
 require("lspconfig").lua_ls.setup{}
+require("lspconfig").ruff.setup{}
 
 -- Formatters
 require("lint").linters_by_ft = {
@@ -19,6 +20,7 @@ require("lint").linters_by_ft = {
 }
 
 -- Key binds
+vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = true, desc = "LSP Formatter" })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Default LSP Hover" })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 -- below are from https://wagomu.me/blog/2023-05-17-vim-ekiden
@@ -38,7 +40,7 @@ vim.keymap.set('n', '<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
 vim.keymap.set('n', '<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Tab formatting
-vim.o.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.o.tabstop = 3 -- A TAB character looks like 4 spaces
 vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
-vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
+vim.o.softtabstop = 3 -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = 3 -- Number of spaces inserted when indenting
