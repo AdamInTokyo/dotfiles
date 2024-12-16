@@ -8,11 +8,27 @@ require("config.lazy")
 
 vim.cmd("colorscheme zenbones")
 vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
+
 -- LSP servers
-require("lspconfig").basedpyright.setup {}
+require("lspconfig").basedpyright.setup {
+   settings = {
+      basedpyright = {
+         analysis = {
+            -- ignore = { "*" },
+            typeCheckingMode = "basic",
+         },
+      },
+   },
+}
+require("lspconfig").ruff.setup {
+   init_options = {
+      settings = {
+         lint = { enable = true },
+      }
+   }
+}
+require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").lua_ls.setup {}
-require("lspconfig").ruff.setup {}
-require("lspconfig").rust_analyzer.setup{}
 
 -- Linters
 require("lint").linters_by_ft = {
@@ -49,3 +65,10 @@ vim.o.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 -- Omni-func completion settings
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.keymap.set('i', '<C-J>', vim.lsp.omnifunc, { noremap = true, silent = true, desc = "Autocomplete" })
+
+-- Telescope init and binds:
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
