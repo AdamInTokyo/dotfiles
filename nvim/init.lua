@@ -9,6 +9,19 @@ require("config.lazy")
 vim.cmd("colorscheme zenbones")
 vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
 
+-- Clear highlighting on escape
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Resume from last cursor position
+vim.api.nvim_create_autocmd({ 'BufWinEnter' },
+   {
+      desc = 'Resume from last cursor postion',
+      pattern = '*',
+      command = 'silent! normal! g`"zz',
+   }
+)
+
 -- LSP servers
 require("lspconfig").basedpyright.setup {
    settings = {
@@ -23,7 +36,7 @@ require("lspconfig").basedpyright.setup {
 require("lspconfig").ruff.setup {
    init_options = {
       settings = {
-         lint = { enable = true },
+         lint = { enable = false },
       }
    }
 }
@@ -64,7 +77,7 @@ vim.o.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
-vim.keymap.set('i', '<C-J>', vim.lsp.omnifunc, { noremap = true, silent = true, desc = "Autocomplete" })
+vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
 
 -- Telescope init and binds:
 local builtin = require('telescope.builtin')
@@ -72,3 +85,4 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
