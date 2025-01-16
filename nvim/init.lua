@@ -64,9 +64,9 @@ vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
-vim.keymap.set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+vim.keymap.set('n', 'gee', '<cmd>lua vim.diagnostic.open_float()<CR>')
+vim.keymap.set('n', 'ge]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+vim.keymap.set('n', 'ge[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 vim.keymap.set('n', '<leader>ar', '<cmd>lua vim.lsp.buf.rename()<CR>')
 vim.keymap.set('n', '<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
@@ -78,7 +78,7 @@ vim.o.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB cha
 vim.o.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
-vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview" } -- preview isn't working
 vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
 
 -- Telescope init and binds:
@@ -87,6 +87,26 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- Leap keybind initialization
+--require('leap').create_default_mappings()
+
+-- Hop keybinds for character search
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+end, {remap=true})
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+end, {remap=true})
+vim.keymap.set('', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
+end, {remap=true})
+vim.keymap.set('n', 's', '<cmd>HopWord<CR>', {desc = 'Hop to word'})
 
 -- Gutter Icons and highlights
 vim.diagnostic.config({

@@ -54,13 +54,13 @@ return {
          require('mini.comment').setup()
       end,
    },
-   {
-      'echasnovski/mini.icons',
-      version = '*',
-      config = function()
-         require('mini.icons').setup()
-      end,
-   },
+   -- {
+   --    'echasnovski/mini.icons',
+   --    version = '*',
+   --    config = function()
+   --       require('mini.icons').setup()
+   --    end,
+   -- },
    {
       'echasnovski/mini.misc',
       version = '*',
@@ -68,6 +68,13 @@ return {
          require('mini.misc').setup()
       end,
    },
+   -- {
+   --    'echasnovski/mini.completion',
+   --    version = '*',
+   --    config = function()
+   --       require('mini.completion').setup()
+   --    end,
+   -- },
    {
       'echasnovski/mini.pairs',
       version = '*',
