@@ -22,6 +22,8 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' },
    }
 )
 
+-- Python stuff
+vim.g.python_recommended_style = 0
 -- LSP servers
 require("lspconfig").basedpyright.setup {
    settings = {
@@ -36,6 +38,7 @@ require("lspconfig").basedpyright.setup {
 require("lspconfig").ruff.setup {
    init_options = {
       settings = {
+         configuration = "~/.config/nvim/ruff.toml",
          lint = { enable = false },
       }
    }
@@ -72,10 +75,10 @@ vim.keymap.set('n', '<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Tab formatting
 local tab_spaces = 3
-vim.o.tabstop = tab_spaces     -- A TAB character looks like X spaces
-vim.o.expandtab = true         -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.o.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB character
-vim.o.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
+vim.opt.tabstop = tab_spaces     -- A TAB character looks like X spaces
+vim.opt.expandtab = true         -- Pressing the TAB key will insert spaces instead of a TAB character
+vim.opt.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
 vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview" } -- preview isn't working
