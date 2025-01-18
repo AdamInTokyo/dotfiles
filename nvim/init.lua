@@ -8,6 +8,8 @@ require("config.lazy")
 
 vim.cmd("colorscheme zenbones")
 vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
+vim.opt.statuscolumn='%=%{(v:relnum >= 1)?v:relnum.\"\":\"\"}' .. '%{(v:relnum == 0)?"♪".v:lnum.\"\":\"\"}%s'
+vim.opt.cursorline = true
 
 -- Clear highlighting on escape
 vim.opt.hlsearch = true
@@ -115,9 +117,9 @@ vim.keymap.set('n', 's', '<cmd>HopWord<CR>', {desc = 'Hop to word'})
 vim.diagnostic.config({
    signs = {
       text = {
-         [vim.diagnostic.severity.ERROR] = '󰈸',
-         [vim.diagnostic.severity.WARN] = '',
-         [vim.diagnostic.severity.HINT] = '',
+         [vim.diagnostic.severity.ERROR] = ' 󰈸',
+         [vim.diagnostic.severity.WARN] = ' ',
+         [vim.diagnostic.severity.HINT] = ' ',
       },
       linehl = {
       },
