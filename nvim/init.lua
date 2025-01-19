@@ -8,7 +8,7 @@ require("config.lazy")
 
 vim.cmd("colorscheme zenbones")
 vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
-vim.opt.statuscolumn='%=%{(v:relnum >= 1)?v:relnum.\"\":\"\"}' .. '%{(v:relnum == 0)?"♪".v:lnum.\"\":\"\"}%s'
+vim.opt.statuscolumn = '%=%{(v:relnum >= 1)?v:relnum.\"\":\"\"}' .. '%{(v:relnum == 0)?"♪".v:lnum.\"\":\"\"}%s'
 vim.opt.cursorline = true
 
 -- Clear highlighting on escape
@@ -58,7 +58,8 @@ vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Default LSP Hover" })
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true, desc = "LSP Signature Help" })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
-vim.keymap.set('n', '<leader>uh', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', { noremap = true, silent = true, desc = "Show inlay hints" })
+vim.keymap.set('n', '<leader>uh', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
+   { noremap = true, silent = true, desc = "Show inlay hints" })
 -- below are from https://wagomu.me/blog/2023-05-17-vim-ekiden
 -- vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
@@ -100,18 +101,18 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
 vim.keymap.set('', 'f', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
-end, {remap=true})
+   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+end, { remap = true })
 vim.keymap.set('', 'F', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
-end, {remap=true})
+   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+end, { remap = true })
 vim.keymap.set('', 't', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
-end, {remap=true})
+   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
+end, { remap = true })
 vim.keymap.set('', 'T', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
-end, {remap=true})
-vim.keymap.set('n', 's', '<cmd>HopWord<CR>', {desc = 'Hop to word'})
+   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
+end, { remap = true })
+vim.keymap.set('n', 's', '<cmd>HopWord<CR>', { desc = 'Hop to word' })
 
 -- Gutter Icons and highlights
 vim.diagnostic.config({
@@ -128,4 +129,46 @@ vim.diagnostic.config({
          -- [vim.diagnostic.severity.WARN] = 'WarningMsg',
       },
    },
+})
+
+-- Terminal binds and colorscheme switch:
+vim.keymap.set('t', '<Esc><Esc>' ,'<C-\\><C-n>')
+vim.api.nvim_create_augroup("TerminalColors", { clear = true })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+   group = "TerminalColors",
+   pattern = "*",
+   callback = function()
+      vim.defer_fn(function()
+         vim.cmd("colorscheme zenburned")
+      end, 10) -- Delay in ms to ensure proper initialization
+   end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+   group = "TerminalColors",
+   pattern = "*",
+   callback = function()
+      if vim.bo.buftype == 'terminal' then
+         -- Delay the colorscheme change slightly to ensure everything is initialized
+         vim.defer_fn(function()
+            vim.cmd("colorscheme zenburned")
+         end, 10)
+      end
+   end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+   group = "TerminalColors",
+   pattern = "*",
+   callback = function()
+      if vim.bo.buftype == 'terminal' then
+         -- Restore the default colorscheme when leaving the terminal buffer
+         vim.cmd("colorscheme zenbones") -- for some reason it needs to be run twice
+         vim.cmd("set background=light")
+         vim.defer_fn(function()
+            vim.cmd("colorscheme zenbones")
+         end, 10)
+      end
+   end,
 })
