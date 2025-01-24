@@ -11,8 +11,8 @@ return {
       ensure_installed = {
 	-- "stylua",
         -- "shfmt",
-        "basedpyright",
-        "ruff",
+        -- "basedpyright",
+        -- "ruff",
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
@@ -50,6 +50,7 @@ return {
         "basedpyright",
         "ruff",
         "rust_analyzer",
+        "lua_ls"
       },
     },
     config = function(_, opts)

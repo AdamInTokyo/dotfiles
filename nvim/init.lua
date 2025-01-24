@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' },
 
 -- Python stuff
 vim.g.python_recommended_style = 0
+
 -- LSP servers
 require("lspconfig").basedpyright.setup {
    settings = {
@@ -84,7 +85,7 @@ vim.opt.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB c
 vim.opt.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
-vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview" } -- preview isn't working
+vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview", "popup" } -- preview isn't working
 vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
 
 -- Telescope init and binds:
@@ -172,3 +173,4 @@ vim.api.nvim_create_autocmd("BufLeave", {
       end
    end,
 })
+
