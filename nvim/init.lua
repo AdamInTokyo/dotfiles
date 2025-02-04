@@ -55,6 +55,8 @@ require("lint").linters_by_ft = {
 }
 
 -- Key binds
+vim.keymap.set('n', '<leader>gf', "<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>",
+   { noremap = true, desc = "Copy file path to clipboard" })
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = true, desc = "LSP Formatter" })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Default LSP Hover" })
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true, desc = "LSP Signature Help" })
@@ -64,16 +66,12 @@ vim.keymap.set('n', '<leader>uh', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.ls
 vim.keymap.set('n', 'gee', vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 vim.keymap.set('n', 'ge]', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set('n', 'ge[', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
--- below are from https://wagomu.me/blog/2023-05-17-vim-ekiden
-vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('n', '<leader>ar', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', '<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = "LSP references list" })
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = "Go to declaration" })
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementation" })
+vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
+vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 
 -- Tab formatting
 local tab_spaces = 3
