@@ -174,3 +174,11 @@ vim.api.nvim_create_autocmd("BufLeave", {
       end
    end,
 })
+
+-- Highlight text while yanking
+vim.api.nvim_create_autocmd('TextYankPost', {
+   desc = 'Highlight text while yanking',
+   callback = function()
+      vim.highlight.on_yank()
+   end,
+})
