@@ -57,6 +57,7 @@ require("lint").linters_by_ft = {
 -- Key binds
 vim.keymap.set('n', '<leader>gf', "<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>",
    { noremap = true, desc = "Copy file path to clipboard" })
+-- vim.keymap.set('n', '<leader>wq', '<C-w><C-q>', { noremap = true, desc = "Close window" })
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = true, desc = "LSP Formatter" })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Default LSP Hover" })
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true, desc = "LSP Signature Help" })
@@ -73,6 +74,17 @@ vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type defi
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 
+-- mini keybinds:
+vim.keymap.set('n', '<leader>mm', MiniMap.toggle, { desc = "Toggle minimap" })
+vim.keymap.set('n', '<leader>mp', MiniVisits.select_path, { desc = "Path history" })
+
+-- Telescope init and binds:
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
 -- Tab formatting
 local tab_spaces = 3
 vim.opt.tabstop = tab_spaces     -- A TAB character looks like X spaces
@@ -83,13 +95,6 @@ vim.opt.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 -- Omni-func completion settings
 vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview", "popup" } -- preview isn't working
 vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
-
--- Telescope init and binds:
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Leap keybind initialization
 --require('leap').create_default_mappings()

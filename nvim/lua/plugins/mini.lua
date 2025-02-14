@@ -68,6 +68,23 @@ return {
          require('mini.misc').setup()
       end,
    },
+   {
+      'echasnovski/mini.indentscope',
+      version = '*',
+      config = function()
+         require('mini.indentscope').setup({
+            draw = {
+               delay = 10,
+               animation = require('mini.indentscope').gen_animation.none(),
+            },
+            options = {
+               indent_at_cursor = true,
+               try_as_border = true,
+            },
+            symbol = '│',
+         })
+      end,
+   },
    -- {
    --    'echasnovski/mini.completion',
    --    version = '*',
