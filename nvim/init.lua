@@ -73,6 +73,7 @@ vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementa
 vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+vim.keymap.set('i', '<C-H>', '<C-w>', { noremap = true, desc = "Delete word" })
 
 -- mini keybinds:
 vim.keymap.set('n', '<leader>mm', MiniMap.toggle, { desc = "Toggle minimap" })
