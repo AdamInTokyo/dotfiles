@@ -24,6 +24,9 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' },
    }
 )
 
+-- Show diagnostic messages after nvim 0.11
+vim.diagnostic.config({ virtual_text = true })
+
 -- Python stuff
 vim.g.python_recommended_style = 0
 
