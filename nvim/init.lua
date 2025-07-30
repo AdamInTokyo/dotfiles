@@ -24,6 +24,9 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' },
    }
 )
 
+-- Show diagnostic messages after nvim 0.11
+vim.diagnostic.config({ virtual_text = true })
+
 -- Python stuff
 vim.g.python_recommended_style = 0
 
@@ -64,9 +67,9 @@ vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silen
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 vim.keymap.set('n', '<leader>uh', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
    { noremap = true, silent = true, desc = "Toggle inlay hints" })
-vim.keymap.set('n', 'gee', vim.diagnostic.open_float, { desc = "Open diagnostic float" })
-vim.keymap.set('n', 'ge]', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-vim.keymap.set('n', 'ge[', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set('n', '<leader>ee', vim.diagnostic.open_float, { desc = "Open diagnostic float" })
+vim.keymap.set('n', '<leader>e]', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set('n', '<leader>e[', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = "LSP references list" })
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = "Go to declaration" })
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementation" })
@@ -183,3 +186,46 @@ vim.api.nvim_create_autocmd('TextYankPost', {
       vim.highlight.on_yank()
    end,
 })
+
+-- Aerial settings
+require("aerial").setup({
+   -- Priority list of preferred backends for aerial.
+   backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+   -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+   on_attach = function(bufnr)
+      -- Jump forwards/backwards with '{' and '}'
+      vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+      vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+   end,
+   layout = {
+      -- These control the width of the aerial window.
+      -- They can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+      -- min_width and max_width can be a list of mixed types.
+      -- max_width = {40, 0.2} means "the lesser of 40 columns or 20% of total"
+      max_width = { 40, 0.2 },
+      width = nil,
+      min_width = 17,
+
+      -- key-value pairs of window-local options for aerial window (e.g. winhl)
+      win_opts = {},
+
+      -- Determines the default direction to open the aerial window. The 'prefer'
+      -- options will open the window in the other direction *if* there is a
+      -- different buffer in the way of the preferred direction
+      -- Enum: prefer_right, prefer_left, right, left, float
+      default_direction = "prefer_right",
+
+      -- Determines where the aerial window will be opened
+      --   edge   - open aerial at the far right/left of the editor
+      --   window - open aerial to the right/left of the current window
+      placement = "window",
+
+      -- When the symbols change, resize the aerial window (within min/max constraints) to fit
+      resize_to_content = true,
+
+      -- Preserve window size equality with (:help CTRL-W_=)
+      preserve_equality = false,
+   }
+})
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader>A", "<cmd>Telescope aerial<CR>")
