@@ -1,3 +1,4 @@
+# NOTE: line 327 of NotebookNavigator's init.lua file has been edited to disable hydra for 0.11 combatibility
 return {
   {
     "GCBallesteros/NotebookNavigator.nvim",
