@@ -74,6 +74,12 @@ vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type defi
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 vim.keymap.set('i', '<C-H>', '<C-w>', { noremap = true, desc = "Delete word" })
+-- Line Break Toggle:
+vim.keymap.set("n", "<leader>tw", function()
+    vim.opt.wrap = not vim.opt.wrap:get()
+    vim.opt.linebreak = vim.opt.wrap:get() -- This can probably just be true all the time
+end, { desc = "Toggle wrap and linebreak" })
+
 
 -- mini keybinds:
 vim.keymap.set('n', '<leader>mm', MiniMap.toggle, { desc = "Toggle minimap" })
@@ -81,13 +87,18 @@ vim.keymap.set('n', '<leader>mp', MiniVisits.select_path, { desc = "Path history
 
 -- Telescope init and binds:
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>ff', function()
+  builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '-g', '!.git' } }
+end, { desc = 'Telescope file finder' } )
+vim.keymap.set('n', '<leader>fc', function()
+  builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', '/home/adam/.config/nvim' } }
+end, { desc = 'Telescope config finder' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Tab formatting
-local tab_spaces = 3
+local tab_spaces = 4
 vim.opt.tabstop = tab_spaces     -- A TAB character looks like X spaces
 vim.opt.expandtab = true         -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB character

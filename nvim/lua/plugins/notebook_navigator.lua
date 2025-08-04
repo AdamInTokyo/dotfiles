@@ -22,13 +22,13 @@ return {
       -- "hkupty/iron.nvim", -- repl provider
       "akinsho/toggleterm.nvim", -- alternative repl provider
       -- "benlubas/molten-nvim", -- alternative repl provider
-      "anuvyklack/hydra.nvim",
+      -- "anuvyklack/hydra.nvim",
     },
     event = "VeryLazy",
     config = function()
       local nn = require("notebook-navigator")
       nn.setup({
-        activate_hydra_keys = "<leader>h",
+        activate_hydra_keys = nil,
         show_hydra_hint = false,
       })
     end,
