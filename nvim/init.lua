@@ -101,15 +101,21 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Tab formatting
-local tab_spaces = 4
+local tab_spaces = 3
 vim.opt.tabstop = tab_spaces     -- A TAB character looks like X spaces
 vim.opt.expandtab = true         -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = tab_spaces -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
-vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview", "popup" } -- preview isn't working
+vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview", "popup" } -- preview/popup isn't working in python files for some reason
 vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
+-- Might need this:
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     callback = function(ev)
+--         vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = false })
+--     end,
+-- })
 
 -- Leap keybind initialization
 --require('leap').create_default_mappings()
