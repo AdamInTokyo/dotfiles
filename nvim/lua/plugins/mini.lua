@@ -118,7 +118,14 @@ return {
       'echasnovski/mini.completion',
       version = '*',
       config = function()
-         require('mini.completion').setup()
+         require('mini.completion').setup(
+            {
+               delay = { completion = math.huge, info = 100, signature = 50 },
+               mappings = {
+                  force_twostep = '<C-j>',
+               }
+            }
+         )
       end,
    },
 }

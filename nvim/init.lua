@@ -109,7 +109,7 @@ vim.opt.shiftwidth = tab_spaces  -- Number of spaces inserted when indenting
 
 -- Omni-func completion settings
 vim.opt.completeopt = { "menuone", "noinsert", "noselect", "preview", "popup" } -- preview/popup isn't working in python files for some reason
-vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
+-- vim.keymap.set('i', '<C-J>', '<C-x><C-o>', { noremap = true, silent = true, desc = "Autocomplete" })
 -- Might need this:
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --     callback = function(ev)
