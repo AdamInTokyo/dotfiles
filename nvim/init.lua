@@ -31,7 +31,7 @@ vim.diagnostic.config({ virtual_text = true })
 vim.g.python_recommended_style = 0
 
 -- LSP servers
-require("lspconfig").basedpyright.setup {
+vim.lsp.config("basedpyright", {
    settings = {
       basedpyright = {
          analysis = {
@@ -40,17 +40,18 @@ require("lspconfig").basedpyright.setup {
          },
       },
    },
-}
-require("lspconfig").ruff.setup {
+})
+vim.lsp.config("ruff", {
    init_options = {
       settings = {
          configuration = "~/.config/nvim/ruff.toml",
          lint = { enable = false },
       }
    }
-}
-require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").lua_ls.setup {}
+})
+--require("lspconfig").rust_analyzer.setup {}
+--require("lspconfig").lua_ls.setup {}
+vim.lsp.enable({ "basedpyright", "ruff", "rust_analyzer", "lua_ls" })
 
 -- Linters
 require("lint").linters_by_ft = {
@@ -79,8 +80,8 @@ vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 vim.keymap.set('i', '<C-H>', '<C-w>', { noremap = true, desc = "Delete word" })
 -- Line Break Toggle:
 vim.keymap.set("n", "<leader>tw", function()
-    vim.opt.wrap = not vim.opt.wrap:get()
-    vim.opt.linebreak = vim.opt.wrap:get() -- This can probably just be true all the time
+   vim.opt.wrap = not vim.opt.wrap:get()
+   vim.opt.linebreak = vim.opt.wrap:get() -- This can probably just be true all the time
 end, { desc = "Toggle wrap and linebreak" })
 
 
@@ -91,15 +92,15 @@ vim.keymap.set('n', '<leader>mp', MiniVisits.select_path, { desc = "Path history
 -- Telescope init and binds:
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', function()
-  builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '-g', '!.git' } }
-end, { desc = 'Telescope file finder' } )
+   builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '-g', '!.git' } }
+end, { desc = 'Telescope file finder' })
 vim.keymap.set('n', '<leader>fc', function()
-  builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', '/home/adam/.config/nvim' } }
+   builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', '/home/adam/.config/nvim' } }
 end, { desc = 'Telescope config finder' })
 vim.keymap.set('n', '<leader>fv', function()
-  venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
-  print(venv_location)
-  builtin.live_grep { search_dirs = {".venv"}, additional_args = {"--hidden", "--no-ignore"}  }
+   venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
+   print(venv_location)
+   builtin.live_grep { search_dirs = { ".venv" }, additional_args = { "--hidden", "--no-ignore" } }
 end, { desc = 'Telescope venv searcher' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
