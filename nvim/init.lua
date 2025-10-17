@@ -96,6 +96,11 @@ end, { desc = 'Telescope file finder' } )
 vim.keymap.set('n', '<leader>fc', function()
   builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', '/home/adam/.config/nvim' } }
 end, { desc = 'Telescope config finder' })
+vim.keymap.set('n', '<leader>fv', function()
+  venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
+  print(venv_location)
+  builtin.live_grep { search_dirs = {".venv"}, additional_args = {"--hidden", "--no-ignore"}  }
+end, { desc = 'Telescope venv searcher' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
