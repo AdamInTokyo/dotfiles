@@ -59,7 +59,9 @@ require("lint").linters_by_ft = {
    --  lua = {"stylua"},
 }
 
--- Key binds
+-- Key binds --
+
+-- Lsp-related keybinds:
 vim.keymap.set('n', '<leader>gf', "<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>",
    { noremap = true, desc = "Copy file path to clipboard" })
 -- vim.keymap.set('n', '<leader>wq', '<C-w><C-q>', { noremap = true, desc = "Close window" })
@@ -79,11 +81,21 @@ vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type defi
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 vim.keymap.set('i', '<C-H>', '<C-w>', { noremap = true, desc = "Delete word" })
+
 -- Line Break Toggle:
 vim.keymap.set("n", "<leader>tw", function()
    vim.opt.wrap = not vim.opt.wrap:get()
    vim.opt.linebreak = vim.opt.wrap:get() -- This can probably just be true all the time
 end, { desc = "Toggle wrap and linebreak" })
+
+-- Navigate tabs:
+vim.keymap.set('n', '<Right>', '<cmd>tabn<CR>', { desc = "Next tab" })
+vim.keymap.set('n', '<Left>', '<cmd>tabN<CR>', { desc = "Previous tab" })
+-- Navigate splits:
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = "Move to left split" })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = "Move to below split" })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = "Move to above split" })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = "Move to right split" })
 
 
 -- mini keybinds:
