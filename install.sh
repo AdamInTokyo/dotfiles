@@ -28,3 +28,10 @@ cargo install --force yazi-build
 apt-get -y install jq
 apt-get -y install fzf
 
+# Install tmux
+apt install -y libevent-dev libncurses-dev bison flex 
+wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
+tar -xvzf tmux-3.6a.tar.gz
+cd tmux-3.6a
+./configure && make && make install
+
