@@ -21,7 +21,7 @@ make CMAKE_BUILD_TYPE=Release && make install
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.bashrc
+. "$HOME/.cargo/env"
 
 # Install yazi
 cargo install --force yazi-build
