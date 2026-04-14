@@ -132,7 +132,7 @@ vim.keymap.set('n', '<leader>ff', function()
    builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '-g', '!.git' } }
 end, { desc = 'Telescope file finder' })
 vim.keymap.set('n', '<leader>fc', function()
-   builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', '/home/adam/.config/nvim' } }
+   builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', vim.fn.expand('$HOME/.config/nvim') } }
 end, { desc = 'Telescope config finder' })
 vim.keymap.set('n', '<leader>fv', function()
    venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
