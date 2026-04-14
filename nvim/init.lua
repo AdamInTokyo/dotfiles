@@ -6,6 +6,14 @@ vim.cmd("set termguicolors")
 
 require("config.lazy")
 
+-- Theme and UI settings
+
+-- Disable lsp hover highlighting the function text (must come before colorscheme command)
+vim.api.nvim_create_autocmd('ColorScheme', {
+   callback = function()
+      vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
+   end,
+})
 vim.cmd("colorscheme zenbones")
 vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
 vim.opt.statuscolumn = '%=%{(v:relnum >= 1)?v:relnum.\"\":\"\"}' .. '%{(v:relnum == 0)?"♪".v:lnum.\"\":\"\"}%s'
@@ -15,6 +23,14 @@ vim.o.winborder = "single"
 -- Clear highlighting on escape
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Highlight text while yanking
+vim.api.nvim_create_autocmd('TextYankPost', {
+   desc = 'Highlight text while yanking',
+   callback = function()
+      vim.highlight.on_yank()
+   end,
+})
 
 -- Resume from last cursor position
 vim.api.nvim_create_autocmd({ 'BufWinEnter' },
@@ -223,13 +239,6 @@ vim.api.nvim_create_autocmd("BufLeave", {
    end,
 })
 
--- Highlight text while yanking
-vim.api.nvim_create_autocmd('TextYankPost', {
-   desc = 'Highlight text while yanking',
-   callback = function()
-      vim.highlight.on_yank()
-   end,
-})
 
 -- Aerial settings
 require("aerial").setup({
@@ -274,9 +283,3 @@ require("aerial").setup({
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader>A", "<cmd>Telescope aerial<CR>")
 
--- Disable lsp hover highlighting the function text
-vim.api.nvim_create_autocmd('ColorScheme', {
-   callback = function()
-      vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
-   end,
-})
