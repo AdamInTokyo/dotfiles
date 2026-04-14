@@ -24,8 +24,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
 
 # Install tree-sitter
-#apt-get -y install libclang-dev
-#cargo install --locked tree-sitter-cli
+apt-get -y install libclang-dev
+cargo install --locked tree-sitter-cli
 
 # Install yazi
 cargo install --force yazi-build
