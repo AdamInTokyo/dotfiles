@@ -66,7 +66,15 @@ vim.keymap.set('n', '<leader>gf', "<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:
    { noremap = true, desc = "Copy file path to clipboard" })
 -- vim.keymap.set('n', '<leader>wq', '<C-w><C-q>', { noremap = true, desc = "Close window" })
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = true, desc = "LSP Formatter" })
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Default LSP Hover" })
+vim.keymap.set('n', 'K', function()
+   vim.lsp.buf.hover({
+      vim.api.nvim_create_autocmd("ColorScheme", {
+         callback = function()
+            vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
+         end,
+      })
+   })
+end, { noremap = true, silent = true, desc = "Default LSP Hover" })
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true, desc = "LSP Signature Help" })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 vim.keymap.set('n', '<leader>uh', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
@@ -265,3 +273,10 @@ require("aerial").setup({
 })
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader>A", "<cmd>Telescope aerial<CR>")
+
+-- Disable lsp hover highlighting the function text
+vim.api.nvim_create_autocmd('ColorScheme', {
+   callback = function()
+      vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
+   end,
+})
