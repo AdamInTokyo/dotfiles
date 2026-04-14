@@ -19,6 +19,7 @@ vim.cmd("set signcolumn=yes") -- predesignate space for warning and git marks
 vim.opt.statuscolumn = '%=%{(v:relnum >= 1)?v:relnum.\"\":\"\"}' .. '%{(v:relnum == 0)?"♪".v:lnum.\"\":\"\"}%s'
 vim.opt.cursorline = true
 vim.o.winborder = "single"
+vim.cmd("set scrolloff=2")
 
 -- Clear highlighting on escape
 vim.opt.hlsearch = true
