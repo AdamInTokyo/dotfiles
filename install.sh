@@ -23,6 +23,9 @@ make CMAKE_BUILD_TYPE=Release && make install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
 
+# Install tree-sitter
+cargo install tree-sitter-cli
+
 # Install yazi
 cargo install --force yazi-build
 apt-get -y install jq
