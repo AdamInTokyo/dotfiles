@@ -71,6 +71,20 @@ vim.lsp.config("ruff", {
 --require("lspconfig").lua_ls.setup {}
 vim.lsp.enable({ "basedpyright", "ruff", "rust_analyzer", "lua_ls" })
 
+-- Settings for Lua lsp to recognize vim global and neovim runtime files
+vim.lsp.config.lua_ls = {
+   settings = {
+      Lua = {
+         diagnostics = {
+            globals = { "vim" },
+         },
+         workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+         },
+      },
+   },
+}
+
 -- Linters
 require("lint").linters_by_ft = {
    --  lua = {"stylua"},
