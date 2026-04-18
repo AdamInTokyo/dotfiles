@@ -20,22 +20,30 @@ cd neovim && git checkout stable
 make CMAKE_BUILD_TYPE=Release && make install
 
 # Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
 . "$HOME/.cargo/env"
 
 # Install tree-sitter
 apt-get -y install libclang-dev
 cargo install --locked tree-sitter-cli
 
+
+# Install tmux
+apt install -y libevent-dev bison flex #libncurses-dev
+
+tar -zxf ncurses-*.tar.gz
+cd ncurses-*/
+./configure --prefix=$HOME/local --with-shared --with-termlib --enable-pc-files --with-pkg-config-libdir=$HOME/local/lib/pkgconfig
+make && make install
+
+wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
+tar -zxf tmux-*.tar.gz
+cd tmux-*/
+PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig ./configure --prefix=$HOME/local
+make && make install
+
 # Install yazi
 cargo install --force yazi-build
 apt-get -y install jq
 apt-get -y install fzf
-
-# Install tmux
-apt install -y libevent-dev libncurses-dev bison flex 
-wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
-tar -xvzf tmux-3.6a.tar.gz
-cd tmux-3.6a
-./configure && make && make install
 
