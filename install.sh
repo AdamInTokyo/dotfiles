@@ -19,6 +19,8 @@ cd $HOME && git clone https://github.com/neovim/neovim.git
 cd neovim && git checkout stable
 make CMAKE_BUILD_TYPE=Release && make install
 
+cd $HOME
+
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env"
@@ -34,8 +36,8 @@ apt install -y libevent-dev bison flex libncurses-dev
 wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
 tar -zxf tmux-*.tar.gz
 cd tmux-*/
-PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig ./configure --prefix=$HOME/local
-make && make install
+./configure
+make && sudo make install
 
 # Install yazi
 cargo install --force yazi-build
