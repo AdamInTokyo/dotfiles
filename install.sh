@@ -20,7 +20,7 @@ cd neovim && git checkout stable
 make CMAKE_BUILD_TYPE=Release && make install
 
 # Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env"
 
 # Install tree-sitter
