@@ -29,12 +29,7 @@ cargo install --locked tree-sitter-cli
 
 
 # Install tmux
-apt install -y libevent-dev bison flex #libncurses-dev
-
-tar -zxf ncurses-*.tar.gz
-cd ncurses-*/
-./configure --prefix=$HOME/local --with-shared --with-termlib --enable-pc-files --with-pkg-config-libdir=$HOME/local/lib/pkgconfig
-make && make install
+apt install -y libevent-dev bison flex libncurses-dev
 
 wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
 tar -zxf tmux-*.tar.gz
@@ -47,3 +42,5 @@ cargo install --force yazi-build
 apt-get -y install jq
 apt-get -y install fzf
 
+# Set language (necessary for tmux to display utf-8 characters correctly)
+echo "export LANG=en_US.UTF-8" >> $HOME/.bashrc
