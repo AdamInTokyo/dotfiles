@@ -37,7 +37,7 @@ wget https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz
 tar -zxf tmux-*.tar.gz
 cd tmux-*/
 ./configure
-make && sudo make install
+make && make install
 
 # Install yazi
 cargo install --force yazi-build
