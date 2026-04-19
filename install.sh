@@ -12,7 +12,8 @@ apt-get update
 apt-get -y install ninja-build gettext cmake curl build-essential git stow ripgrep python3-venv
 
 # Stow dotfiles
-mkdir -p $HOME/.config/nvim && stow -d $HOME/dotfiles -t $HOME/.config/nvim nvim
+mkdir -p $HOME/.config && stow -d $HOME/dotfiles -t $HOME/.config/nvim nvim
+stow -d $HOME/dotfiles -t $HOME tmux
 
 # Install Neovim from source
 cd $HOME && git clone https://github.com/neovim/neovim.git
@@ -44,5 +45,8 @@ cargo install --force yazi-build
 apt-get -y install jq
 apt-get -y install fzf
 
-# Set language (necessary for tmux to display utf-8 characters correctly)
+# Set language and terminal (necessary for tmux to display utf-8 characters and color correctly)
 echo "export LANG=en_US.UTF-8" >> $HOME/.bashrc
+echo "export TERM=xterm-256color" >> $HOME/.bashrc
+
+source $HOME/.bashrc
