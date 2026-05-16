@@ -8,6 +8,7 @@ config.term = 'wezterm'
 -- Set to launch with WSL2
 config.default_domain = 'WSL:Ubuntu'
 
+local color_scheme_file = "C:\\Users\\modal\\zenbones\\wezterm\\zenburned.toml"
 config.color_scheme_dirs = { "C:\\Users\\modal\\zenbones\\wezterm\\zenburned.toml" }
 config.color_scheme = 'zenburned'
 
@@ -42,13 +43,16 @@ config.window_frame = {
 }
 
 
+colors, metadata = wezterm.color.load_scheme(color_scheme_file)
 config.colors = {
   compose_cursor = '#f9f9f9',
   tab_bar = {
     active_tab = {
       -- fg_color = "#f0e4cf",
-      fg_color = "white",
-      bg_color = "#404040",
+      -- fg_color = "white",
+      -- bg_color = "#404040",
+      fg_color = colors.foreground,
+      bg_color = colors.background,
       underline = "Double",
       intensity = "Bold",
     }

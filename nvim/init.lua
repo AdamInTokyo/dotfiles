@@ -119,6 +119,8 @@ vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementa
 vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+
+-- Editing keybinds:
 vim.keymap.set('i', '<C-H>', '<C-w>', { noremap = true, desc = "Delete word" })
 
 -- Line Break Toggle:
@@ -150,9 +152,13 @@ vim.keymap.set('n', '<leader>fc', function()
    builtin.find_files { find_command = { 'rg', '--files', '--hidden', '--follow', '--iglob', '!.git', vim.fn.expand('$HOME/.config/nvim') } }
 end, { desc = 'Telescope config finder' })
 vim.keymap.set('n', '<leader>fv', function()
-   venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
+   local venv_location = vim.lsp.buf.list_workspace_folders()[1] .. '/.venv'
    print(venv_location)
    builtin.live_grep { search_dirs = { ".venv" }, additional_args = { "--hidden", "--no-ignore" } }
+end, { desc = 'Telescope venv searcher' })
+vim.keymap.set('n', '<leader>fe', function()
+   local conda_location = vim.fn.expand('$CONDA_PREFIX/pkgs')
+   builtin.live_grep { search_dirs = { conda_location }, additional_args = { "--hidden", "--no-ignore" } }
 end, { desc = 'Telescope venv searcher' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
@@ -296,5 +302,21 @@ require("aerial").setup({
    }
 })
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
-vim.keymap.set("n", "<leader>A", "<cmd>Telescope aerial<CR>")
+vim.keymap.set("n", "<leader>fa", "<cmd>Telescope aerial<CR>")
 
+-- Copilot settings
+vim.cmd("Copilot disable")
+vim.keymap.set(
+   'n',
+   '<leader>cc',
+   function()
+      if vim.g.copilot_enabled == 1 then
+         vim.cmd('Copilot disable')
+         print('Copilot Disabled')
+      else
+         vim.cmd('Copilot enable')
+         print('Copilot Enabled')
+      end
+   end,
+   { desc = "Copilot - toggle" }
+)
